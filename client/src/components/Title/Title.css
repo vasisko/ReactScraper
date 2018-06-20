@@ -1,0 +1,13 @@
+.title {
+
+  background: black;
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  color: white;
+  justify-content: space-around;
+  align-content: flex-start;
+  overflow: auto;
+  width: 80%;
+  margin: auto;
+}
