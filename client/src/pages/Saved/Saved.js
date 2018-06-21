@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Wrapper from "../../components/Wrapper";
-import Title from "../../components/Title";
+import Navbar from "../../components/Navbar";
 
 
 class Saved extends Component {
@@ -10,8 +10,7 @@ class Saved extends Component {
       
       <Wrapper>
         
-        <Title>NYTimes React Scraper</Title>
-        
+        <Navbar />        
         <h3>Saved listing goes here</h3>
        
       </Wrapper>
