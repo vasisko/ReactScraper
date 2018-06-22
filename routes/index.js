@@ -1,25 +1,21 @@
 const path = require("path");
 const router = require("express").Router();
-//const apiRoutes = require("./api");
+const apiRoutes = require("./api");
 
 // API Routes
-//router.use("/api", apiRoutes);
+router.use("/api", apiRoutes);
 
-
-
-
-
-router.use('/', function (req, res){
-    res.render('index');
-  })
+// router.use('/', function (req, res){
+//     res.render('index');
+//   })
   
-  router.use('/saved', function (req, res){
-    res.render('savedArticles');
-  })
+//   router.use('/saved', function (req, res){
+//     res.render('savedArticles');
+//   })
   
   // SCRAPE FOR NEWS --------------------//
   // SCRAPE route
-  router.use("/scrape", function(req,res){
+  router.get("/scrape", function(req,res){
   
     // Scrape for news------------------------------
     axios.get("http://www.nytimes.com", ).then(function(response) {
@@ -70,3 +66,4 @@ router.use('/', function (req, res){
   });
 
 
+  

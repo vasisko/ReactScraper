@@ -13,9 +13,11 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Handle all routing in routesg
+// Handle all routing in routing
 app.use(routes);
 
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/nytreact");
 
 
 app.listen(PORT, () => {
