@@ -17,8 +17,7 @@ class Home extends Component {
 
   loadArticles = () => {
     API.getArticles()
-      .then(res => this.setState({            articles: res.data 
-      }))
+      .then(res => this.setState({ articles: res.data }))
       .catch(err => console.log(err));
   };
 
