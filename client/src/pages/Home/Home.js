@@ -6,9 +6,11 @@ import API from "../../utils/API";
 
 class Home extends Component {
   state = {
-    search: "",
     topic: "",
-    articles: []
+    startYear: "",
+    endYear: "",
+    articles: [],
+    error: ""
   };
 
   componentDidMount() {
@@ -21,24 +23,61 @@ class Home extends Component {
       .catch(err => console.log(err));
   };
 
-  handleBtnClick = event => {
-    //call axios -- scrape for articles
-  }
+  deleteArticle = id => {
+    API.deleteArticle(id)
+      .then(res => this.loadArticles())
+      .catch(err => console.log(err));
+  };
 
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    // api call -- scrape for articles
+    API.scrapeNYT(this.state.topic, this.state.startYear, this.state.endYear)
+    .then (res => this.setState({ 
+        articles: res.data.response.docs, 
+        }))
+    .catch(err => this.setState({error: err.message}));
+    
+  };
+
+ 
   render() {
+  
     return (
       
+      // User form to get user input for article search
+      // Top 5 Results returned/posted below form
+
       <Wrapper>
         <Navbar /><br />
           <form>
-              <Input name="topic" placeholder="Topic" />
-              <Input name="yearStart" placeholder="
-               Starting Year" />
-              <Input name="yearEnd" placeholder="Ending Year" />
-              <FormBtn>Get Articles</FormBtn>
+              <Input name="topic" placeholder="Topic (required)"
+              value={this.state.topic} onChange={this.handleInputChange} />
+              <Input name="startYear" placeholder="
+               Starting Year" value={this.state.startYear} onChange={this.handleInputChange}/>
+              <Input name="endYear" placeholder="Ending Year" value={this.state.endYear} onChange={this.handleInputChange} />
+              <FormBtn onClick={this.handleFormSubmit}>Get Articles</FormBtn>
             </form>
        
-      </Wrapper>
+
+           <h2>Results</h2>
+           {this.state.articles.slice(0,5).map(article => (
+             <Listing
+              id={article._id}
+              title={article.headline.main}
+              url={article.web_url}
+              />
+           ))}
+      
+       </Wrapper>
     );
   }
 }
